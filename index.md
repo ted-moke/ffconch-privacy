@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 4, 2026_
+_Last updated: September 5, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. Conch FF is an
@@ -34,7 +34,8 @@ talk to servers on the developer's behalf:
   other things off. It sends no data about you — only the extension's version
   and which browser it is — and receives a short list of on/off flags.
 
-No other feature contacts any server beyond the public APIs described below.
+No other feature contacts any server beyond the public APIs and the FF TV
+Guide service described below.
 
 ## What data the extension accesses
 
@@ -59,7 +60,10 @@ When the "Trade history enrichment" feature is enabled (it is by default) and
 you open a league's **transactions tab**, the extension contacts the
 developer-operated FF TV Guide API to fetch that league's historical trades —
 including which players traded draft picks eventually became, which Sleeper
-does not show.
+does not show. The first time a league is looked up the service may still be
+importing its history from Sleeper's public API; while that runs the extension
+polls a **sync-status** endpoint — sending the same league ID — so it can show
+you the import's progress instead of an empty panel.
 
 - **What is sent:** the Sleeper **league ID** of the league you are viewing,
   and an **anonymous authentication token**. The extension signs in to the
@@ -76,12 +80,21 @@ does not show.
 - **What is never sent:** your name, email, credentials, cookies, browsing
   history, or any data from non-Sleeper sites.
 
-The extension also asks this service for two things that are **not** about you
+In the **draft room**, the extension asks the same service for **pick timing**
+for the draft you are open on — how long each pick took — so it can show
+average pick times alongside the draft. What is sent is the Sleeper **draft
+ID** and the same anonymous token; what comes back is timing data for that
+draft's picks. This goes off with the draft page enhancements in the popup.
+
+The extension also asks this service for things that are **not** about you
 or your leagues:
 
 - **The NFL schedule** (the TV Guide tab): kickoff times and TV networks for the
   season. The request carries no league ID and no identifier beyond the
   anonymous token; every user receives the same answer.
+- **Matchup difficulty** (the opponent tint on the team, matchup, and players
+  pages): how hard each NFL team's upcoming matchups are. Like the schedule,
+  the request carries no league ID and every user receives the same answer.
 - **The feature configuration** described above: which parts of the extension
   are currently allowed to run.
 
@@ -153,9 +166,9 @@ outside the public APIs above is the developer-operated FF TV Guide service.
   enhancements.
 - **Host access** to the FF TV Guide API
   (`ff-tv-guide-507152681487.us-east4.run.app`) — to fetch trade-history
-  enrichment, the NFL schedule behind the TV Guide tab, and the feature
-  configuration, all as described above. Conch FF requests access to no other
-  sites.
+  enrichment, draft pick timing, the NFL schedule behind the TV Guide tab,
+  matchup difficulty, and the feature configuration, all as described above.
+  Conch FF requests access to no other sites.
 
 ## Changes to this policy
 
