@@ -3,18 +3,22 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 5, 2026_
+_Last updated: September 7, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
-fantasy football website with richer stats and a cleaner layout. Conch FF is an
-independent project and is **not affiliated with, endorsed by, or sponsored by
-Sleeper.**
+fantasy football website with richer stats and a cleaner layout. It can also
+connect your **ESPN** leagues to the Conch website, so you can see them
+alongside your Sleeper ones — that feature is optional, off until you ask for
+it, and described in full in its own section below. Conch FF is an independent
+project and is **not affiliated with, endorsed by, or sponsored by Sleeper or
+ESPN.**
 
 ## The short version
 
-Conch FF does **not** collect, sell, or share your personal information. Most
-of what the extension does happens locally in your own browser. A few features
-talk to servers on the developer's behalf:
+Conch FF does **not** sell or share your personal information, and most of
+what the extension does happens locally in your own browser. A few features
+talk to servers on the developer's behalf — and one of them, which you have to
+ask for by name, sends an authentication credential:
 
 - **Trade-history enrichment** sends the **league ID** of the Sleeper league
   you are viewing to a backend service operated by the developer (**FF TV
@@ -33,6 +37,11 @@ talk to servers on the developer's behalf:
   This one is **not** switchable, because it is the mechanism for switching
   other things off. It sends no data about you — only the extension's version
   and which browser it is — and receives a short list of on/off flags.
+- **ESPN connect** — only if you press **"Connect ESPN"** — reads the ESPN
+  session cookies your browser already holds and sends them to the FF TV Guide
+  service so it can read your ESPN leagues on your behalf. **These are the
+  credentials that keep you signed in to ESPN.** Nothing is read and nothing is
+  sent unless you press that button. Described in full below.
 
 No other feature contacts any server beyond the public APIs and the FF TV
 Guide service described below.
@@ -54,6 +63,9 @@ These requests contain only the public identifiers needed to look up that data
 (for example, a league ID or player ID). They do **not** include your name,
 email, password, or any account credentials.
 
+The one exception is **ESPN connect** below, which sends ESPN session cookies —
+and only when you explicitly ask it to.
+
 ## The FF TV Guide backend
 
 When the "Trade history enrichment" feature is enabled (it is by default) and
@@ -74,11 +86,13 @@ you the import's progress instead of an empty panel.
   from Sleeper's public API.
 - **What the service stores:** league-level fantasy data (leagues, trades,
   drafts) fetched from Sleeper's public API — the same information visible to
-  every member of the league on Sleeper. The service does not receive or store
-  your personal information, browsing history, or any page content beyond the
+  every member of the league on Sleeper. From this feature the service receives
+  no personal information, no browsing history, and no page content beyond the
   league ID.
-- **What is never sent:** your name, email, credentials, cookies, browsing
-  history, or any data from non-Sleeper sites.
+- **What is never sent by this feature:** your name, email, credentials,
+  cookies, browsing history, or any data from non-Sleeper sites. (ESPN connect,
+  below, is a separate feature you opt into by pressing a button; it is the one
+  part of Conch FF that sends a cookie anywhere.)
 
 In the **draft room**, the extension asks the same service for **pick timing**
 for the draft you are open on — how long each pick took — so it can show
@@ -103,6 +117,50 @@ the TV Guide tab stops the schedule request. The feature-configuration check
 keeps running while the extension is enabled — it is the switch that turns
 things off, so it cannot be behind one of them. Turning the whole extension off
 in the popup stops all communication with the service.
+
+## ESPN connect (optional, and off unless you ask for it)
+
+ESPN publishes no API and no sign-in method for third-party apps, so the only
+way to show you a private ESPN league is to use the ESPN session your browser
+already holds. This is the one feature of Conch FF that sends a credential
+anywhere, and none of it happens unless you press the button.
+
+A small script does run on `espn.com` pages, but it is entirely passive: it
+waits for a single message from the extension popup and answers it. On its own
+it reads nothing, sends nothing, and stores nothing.
+
+If — and only if — you press **"Connect ESPN"** in the extension popup:
+
+- **What is read:** two cookies belonging to `espn.com`, `espn_s2` and `SWID`,
+  read from an ESPN page you already have open — the same way ESPN's own page
+  scripts read them. These are the credentials that keep you signed in to ESPN.
+  No other cookie, for ESPN or for any other site, is ever read.
+- **What is sent:** those two values, once, to the FF TV Guide service,
+  together with the anonymous authentication token described above.
+- **Why:** so the service can call ESPN as you and read the leagues, rosters,
+  drafts and scores you can already see on ESPN's own site.
+- **What is stored, and where:** the service keeps the two values so it can
+  keep your leagues up to date. They are held in storage no app client can
+  read, are never returned by any API, and are never written to logs. **The
+  extension itself never stores them** — they are read, sent once, and dropped.
+- **What is never done with them:** they are used only to *read* your fantasy
+  data. Conch FF never sets a lineup, makes a transaction or a trade, posts a
+  message, or takes any other action on your ESPN account.
+- **Finishing on the website:** after the capture, the popup links you to the
+  Conch website to choose which ESPN leagues to add. That link carries a
+  single-use code, valid briefly, which lets the account you are signed into
+  there take ownership of the connection. The code is not your ESPN
+  credentials and it works only once.
+- **Removing them:** disconnecting the ESPN connection in the Conch web app
+  deletes the stored values. Signing out of ESPN everywhere also invalidates
+  them, after which Conch will ask you to reconnect.
+
+If the extension cannot read the session — no ESPN tab open, or you are signed
+out of ESPN — it says so and points you to the Conch website, where you can
+connect by copying the two values across yourself.
+
+If you never press the button, the extension never reads an ESPN cookie and
+never contacts ESPN.
 
 ## Anonymous usage analytics
 
@@ -137,7 +195,9 @@ browser** using the standard extension storage APIs:
 - **`chrome.storage.local`** — a cached copy of the NFL player dictionary,
   short-lived league/matchup data, the anonymous FF TV Guide authentication
   token described above, the random analytics identifier, and a few
-  housekeeping timestamps (last analytics ping, last update check).
+  housekeeping timestamps (last analytics ping, last update check). ESPN
+  session cookies are **not** among them: as described above, they are sent
+  once and never written to extension storage.
 - **`chrome.storage.sync`** — your Conch FF settings (which features are turned
   on). If you are signed into Chrome, your browser may sync these settings across
   your own devices; this is handled entirely by Chrome, not by Conch FF.
@@ -155,12 +215,18 @@ Nothing is sold or shared with advertisers or data brokers. Anonymous usage
 analytics (a random identifier and the extension version — never any fantasy
 data) is processed by Google Analytics on the developer's behalf, exactly as
 described above. Beyond that, the only party the extension communicates with
-outside the public APIs above is the developer-operated FF TV Guide service.
+outside the public APIs above is the developer-operated FF TV Guide service —
+which, if you use ESPN connect, is also given your ESPN session cookies so it
+can read your leagues on your behalf.
 
 ## Permissions
 
 - **`storage` / `unlimitedStorage`** — to cache the player dictionary and your
   settings locally, as described above.
+- **`activeTab`** — lets the popup see the address of the tab you are looking
+  at, and only while you have the popup open, so it can show the controls that
+  apply to that site. It grants nothing for any other tab and nothing in the
+  background.
 - **Host access** to `sleeper.com`, the Sleeper APIs/CDN, and the FantasyCalc API
   — to read the page you're viewing and fetch the public data that powers the
   enhancements.
@@ -168,7 +234,12 @@ outside the public APIs above is the developer-operated FF TV Guide service.
   (`ff-tv-guide-507152681487.us-east4.run.app`) — to fetch trade-history
   enrichment, draft pick timing, the NFL schedule behind the TV Guide tab,
   matchup difficulty, and the feature configuration, all as described above.
-  Conch FF requests access to no other sites.
+- **Access to `espn.com` pages** — so the passive script described under ESPN
+  connect can run there and, when you press "Connect ESPN", hand over the two
+  session values. Conch FF requests **no browser-wide cookie permission at
+  all**: it can only read what an ESPN page can already read about itself.
+
+Conch FF requests access to no other sites.
 
 ## Changes to this policy
 
