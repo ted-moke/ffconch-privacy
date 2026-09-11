@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 7, 2026_
+_Last updated: September 11, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. It can also
@@ -109,6 +109,11 @@ or your leagues:
 - **Matchup difficulty** (the opponent tint on the team, matchup, and players
   pages): how hard each NFL team's upcoming matchups are. Like the schedule,
   the request carries no league ID and every user receives the same answer.
+- **Live game clocks** (the in-progress projections on the league and matchup
+  pages): which NFL games are under way and how much game time is left in each
+  — so a projection can be marked down while a game is being played instead of
+  showing a full-game number. Like the schedule, the request carries no league
+  ID and every user receives the same answer.
 - **The feature configuration** described above: which parts of the extension
   are currently allowed to run.
 
@@ -233,7 +238,8 @@ can read your leagues on your behalf.
 - **Host access** to the FF TV Guide API
   (`ff-tv-guide-507152681487.us-east4.run.app`) — to fetch trade-history
   enrichment, draft pick timing, the NFL schedule behind the TV Guide tab,
-  matchup difficulty, and the feature configuration, all as described above.
+  matchup difficulty, live NFL game clocks, and the feature configuration, all
+  as described above.
 - **Access to `espn.com` pages** — so the passive script described under ESPN
   connect can run there and, when you press "Connect ESPN", hand over the two
   session values. Conch FF requests **no browser-wide cookie permission at
