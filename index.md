@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 11, 2026_
+_Last updated: September 14, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. It can also
@@ -100,6 +100,15 @@ average pick times alongside the draft. What is sent is the Sleeper **draft
 ID** and the same anonymous token; what comes back is timing data for that
 draft's picks. This goes off with the draft page enhancements in the popup.
 
+On the **Players tab**, the extension asks the same service for **waiver
+pickup suggestions** — unrostered players in the league you are viewing who
+are worth claiming, each with a short reason. What is sent is the Sleeper
+**league ID** and the same anonymous token; what comes back is a list of
+candidate players, assembled by the service from the league data described
+above and public player stats and projections. The extension then drops anyone Sleeper shows as
+already rostered, in your browser, before displaying the list. This goes off
+with the Players page enhancements in the popup.
+
 The extension also asks this service for things that are **not** about you
 or your leagues:
 
@@ -118,7 +127,8 @@ or your leagues:
   are currently allowed to run.
 
 Turning off trade-history enrichment stops the trade requests, and turning off
-the TV Guide tab stops the schedule request. The feature-configuration check
+the TV Guide tab stops the schedule request, and turning off the Players page
+enhancements stops the pickup suggestions request. The feature-configuration check
 keeps running while the extension is enabled — it is the switch that turns
 things off, so it cannot be behind one of them. Turning the whole extension off
 in the popup stops all communication with the service.
