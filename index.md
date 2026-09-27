@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 17, 2026_
+_Last updated: September 26, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. It can also
@@ -24,9 +24,10 @@ ask for by name, sends an authentication credential:
   you are viewing to a backend service operated by the developer (**FF TV
   Guide**) so it can return that league's trade history. Switchable off in the
   extension popup.
-- **The TV Guide tab** asks that same service for the **NFL schedule** —
-  kickoff times and TV networks, which Sleeper's own API does not carry. The
-  request identifies no league and no person. Switchable off in the popup.
+- **The NFL schedule** — kickoff times and TV networks, which Sleeper's own API
+  does not carry — is fetched from that same service by the pages that show you
+  when a game is on. The request identifies no league and no person. Switchable
+  off in the popup.
 - **Anonymous usage analytics** sends a random identifier, the extension's
   **version number**, and a record of **which kinds of page you viewed and
   which Conch features you used** to Google Analytics, so the developer can
@@ -115,26 +116,27 @@ with the Players page enhancements in the popup.
 The extension also asks this service for things that are **not** about you
 or your leagues:
 
-- **The NFL schedule** (the TV Guide tab): kickoff times and TV networks for the
-  season. The request carries no league ID and no identifier beyond the
-  anonymous token; every user receives the same answer.
-- **Matchup difficulty** (the opponent tint on the team, matchup, and players
-  pages): how hard each NFL team's upcoming matchups are. Like the schedule,
-  the request carries no league ID and every user receives the same answer.
-- **Live game clocks** (the in-progress projections on the league and matchup
-  pages): which NFL games are under way and how much game time is left in each
-  — so a projection can be marked down while a game is being played instead of
-  showing a full-game number. Like the schedule, the request carries no league
-  ID and every user receives the same answer.
+- **The NFL schedule**: kickoff times and TV networks for the season. The
+  request carries no league ID and no identifier beyond the anonymous token;
+  every user receives the same answer.
+- **Matchup difficulty**: how hard each NFL team's upcoming matchups are. Like
+  the schedule, the request carries no league ID and every user receives the
+  same answer.
+- **Live game clocks**: which NFL games are under way, what the score is, and
+  how much game time is left in each — so a projection can be marked down while
+  a game is being played instead of showing a full-game number, and so a score
+  can be shown beside it. Like the schedule, the request carries no league ID
+  and every user receives the same answer.
 - **The feature configuration** described above: which parts of the extension
   are currently allowed to run.
 
-Turning off trade-history enrichment stops the trade requests, and turning off
-the TV Guide tab stops the schedule request, and turning off the Players page
-enhancements stops the pickup suggestions request. The feature-configuration check
-keeps running while the extension is enabled — it is the switch that turns
-things off, so it cannot be behind one of them. Turning the whole extension off
-in the popup stops all communication with the service.
+Every request above belongs to a feature you can switch off in the popup, and
+turning that feature off stops it. The three shared reads — the NFL schedule,
+matchup difficulty and live game clocks — are used by more than one feature, so
+they stop once all of the features that use them are off. The
+feature-configuration check keeps running while the extension is enabled — it is
+the switch that turns things off, so it cannot be behind one of them. Turning the
+whole extension off in the popup stops all communication with the service.
 
 ## ESPN connect (optional, and off unless you ask for it)
 
@@ -286,9 +288,8 @@ can read your leagues on your behalf.
   enhancements.
 - **Host access** to the FF TV Guide API
   (`ff-tv-guide-507152681487.us-east4.run.app`) — to fetch trade-history
-  enrichment, draft pick timing, the NFL schedule behind the TV Guide tab,
-  matchup difficulty, live NFL game clocks, and the feature configuration, all
-  as described above.
+  enrichment, draft pick timing, the NFL schedule, matchup difficulty, live NFL
+  game clocks, and the feature configuration, all as described above.
 - **Access to `espn.com` pages** — so the passive script described under ESPN
   connect can run there and, when you press "Connect ESPN", hand over the two
   session values. Conch FF requests **no browser-wide cookie permission at
