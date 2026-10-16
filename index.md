@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: September 26, 2026_
+_Last updated: October 16, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. It can also
@@ -127,6 +127,14 @@ or your leagues:
   a game is being played instead of showing a full-game number, and so a score
   can be shown beside it. Like the schedule, the request carries no league ID
   and every user receives the same answer.
+- **Player values for trade ideas**: one file, rebuilt daily, of NFL player
+  and draft-pick values and outlooks, which the trade ideas on your team page
+  and the TRADES tab use. The request carries only the season: no league ID,
+  no identifier, and not even the anonymous token. Every user receives the
+  same file. The ideas themselves are worked out inside the extension, in your
+  browser, from the league page you already have open; your roster and league
+  are never sent for this. It goes off with the Team page enhancements and
+  Trade history in the popup.
 - **The feature configuration** described above: which parts of the extension
   are currently allowed to run.
 
@@ -241,13 +249,23 @@ about you.
   popup (turning the whole extension off also stops analytics). The Firefox
   build contains no analytics code at all.
 
+## Links to the Conch website
+
+Some buttons and links in Conch FF open the Conch website (conchff.com), for
+example to see a league's full history or more trade ideas. When you click one,
+the link carries your Sleeper user ID and the ID of the league you were
+viewing (and, for a trade idea, which player or team it was about), so the
+website can open that league for you. These are the public Sleeper IDs, not
+your name, email or Sleeper password. Nothing is sent until you click.
+
 ## What data the extension stores
 
 To stay fast and reduce network requests, Conch FF caches data **locally in your
 browser** using the standard extension storage APIs:
 
 - **`chrome.storage.local`** — a cached copy of the NFL player dictionary,
-  short-lived league/matchup data, the anonymous FF TV Guide authentication
+  short-lived league/matchup data, the player-values file used by trade ideas,
+  the anonymous FF TV Guide authentication
   token described above, the random analytics identifier, and a few
   housekeeping timestamps (last analytics send, last daily settings summary,
   last update check). ESPN
@@ -288,8 +306,9 @@ can read your leagues on your behalf.
   enhancements.
 - **Host access** to the FF TV Guide API
   (`ff-tv-guide-507152681487.us-east4.run.app`) — to fetch trade-history
-  enrichment, draft pick timing, the NFL schedule, matchup difficulty, live NFL
-  game clocks, and the feature configuration, all as described above.
+  enrichment, draft pick timing, waiver pickup suggestions, the NFL schedule,
+  matchup difficulty, live NFL game clocks, player values for trade ideas, and
+  the feature configuration, all as described above.
 - **Access to `espn.com` pages** — so the passive script described under ESPN
   connect can run there and, when you press "Connect ESPN", hand over the two
   session values. Conch FF requests **no browser-wide cookie permission at
