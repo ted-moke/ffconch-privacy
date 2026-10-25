@@ -3,7 +3,7 @@ title: Conch FF — Privacy Policy
 ---
 # Conch FF — Privacy Policy
 
-_Last updated: October 16, 2026_
+_Last updated: October 24, 2026_
 
 Conch FF ("the extension") is a browser extension that enhances the Sleeper
 fantasy football website with richer stats and a cleaner layout. It can also
@@ -59,7 +59,9 @@ it can display it more usefully. To enrich that view it fetches additional
 
 - **Sleeper public API** (`api.sleeper.app`, `api.sleeper.com`) — league,
   roster, matchup, and player information.
-- **Sleeper CDN** (`sleepercdn.com`) — player avatars and images.
+- **Sleeper CDN** (`sleepercdn.com`) — player avatars and images, and,
+  if you turn on light mode, Sleeper's own stylesheet, which Conch FF
+  recolors in your browser.
 - **FantasyCalc public API** (`api.fantasycalc.com`) — player and draft-pick
   trade values (dynasty or redraft, matching the league's format).
 
@@ -265,6 +267,7 @@ browser** using the standard extension storage APIs:
 
 - **`chrome.storage.local`** — a cached copy of the NFL player dictionary,
   short-lived league/matchup data, the player-values file used by trade ideas,
+  the recolored copy of Sleeper's stylesheet used by light mode,
   the anonymous FF TV Guide authentication
   token described above, the random analytics identifier, and a few
   housekeeping timestamps (last analytics send, last daily settings summary,
